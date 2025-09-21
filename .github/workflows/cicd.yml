@@ -45,10 +45,11 @@ jobs:
         run: |
           mkdir -p HTML
           for md_file in Post/*.md; do
-            html_file="HTML/$(basename "${md_file%.md}.html")"
+            post_name=$(basename "$md_file" .md)
+            html_file="HTML/${post_name}.html"
             if [ ! -f "$html_file" ]; then
               echo "Converting $md_file → $html_file"
-              python mdConverter.py "$md_file" "$html_file"
+              python mdConverter.py "$post_name"
             else
               echo "Skipping $md_file, HTML already exists"
             fi

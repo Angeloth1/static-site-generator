@@ -15,13 +15,23 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Show repo files for debug
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Files in root:"
+          ls -l
+          echo "Files in Post/:"
+          ls -l Post/ || echo "Post/ folder not found"
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: Install pipreqs
-        run: pip install pipreqs
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install markdown pipreqs
 
       - name: Generate requirements.txt
         run: |
@@ -38,19 +48,18 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "Auto-update requirements.txt via pipreqs"
           git push origin ${{ github.ref_name }} || echo "No changes to push"
 
-      - name: Install dependencies
-        run: pip install -r config/requirements.txt
-
       - name: Convert missing Markdown files
         run: |
           mkdir -p HTML
+          echo "Files in Post/:"
+          ls -l Post/
           for md_file in Post/*.md; do
             post_name=$(basename "$md_file" .md)
             html_file="HTML/${post_name}.html"
-            if [ ! -f "$html_file" ]; then
-              echo "Converting $md_file → $html_file"
-              python mdConverter.py "$post_name"
-            else
-              echo "Skipping $md_file, HTML already exists"
-            fi
+            echo "Checking $md_file → $html_file"
+            echo "DEBUG: Running python mdConverter.py $post_name"
+            python mdConverter.py "$post_name"
           done
+
+      - name: List HTML output
+        run: ls -l HTML/ || echo "HTML/ folder is empty"

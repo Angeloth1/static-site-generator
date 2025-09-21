@@ -1,0 +1,54 @@
+name: Convert Markdown to HTML
+
+on:
+  push:
+    branches: [ pplUpdate ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install pipreqs
+        run: pip install pipreqs
+
+      - name: Generate requirements.txt
+        run: |
+          pipreqs . --force --encoding=utf-8 --savepath=config/requirements.txt
+
+      - name: Commit updated requirements.txt
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add config/requirements.txt
+          git diff-index --quiet HEAD || git commit -m "Auto-update requirements.txt via pipreqs"
+          git push origin pplUpdate
+
+      - name: Install dependencies
+        run: pip install -r config/requirements.txt
+
+      - name: Get changed Markdown files in Post/
+        id: changes
+        run: |
+          git fetch origin pplUpdate
+          FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^Post/.*\.md$' || true)
+          echo "changed_files=$FILES" >> $GITHUB_OUTPUT
+
+      - name: Check if any Markdown files changed
+        if: ${{ steps.changes.outputs.changed_files == '' }}
+        run: |
+          echo "No Markdown files changed in Post/. Skipping conversion."
+          exit 0
+
+      - name: Run converter on changed files
+        run: |
+          for file in ${{ steps.changes.outputs.changed_files }}; do
+            outfile="HTML/$(basename "${file%.md}.html")"
+            python converter.py "$file" "$outfile"

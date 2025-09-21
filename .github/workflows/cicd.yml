@@ -2,7 +2,9 @@ name: Convert Markdown to HTML
 
 on:
   push:
-    branches: [ pplUpdate ]
+    branches: 
+      - pplUpdate
+      - main
 
 jobs:
   build:
@@ -34,7 +36,7 @@ jobs:
           git remote set-url origin https://x-access-token:${PAT_TOKEN}@github.com/Angeloth1/static-site-generator.git
           git add config/requirements.txt
           git diff-index --quiet HEAD || git commit -m "Auto-update requirements.txt via pipreqs"
-          git push origin pplUpdate || echo "No changes to push"
+          git push origin ${{ github.ref_name }} || echo "No changes to push"
 
       - name: Install dependencies
         run: pip install -r config/requirements.txt

@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-        contents: write
+      contents: write
 
     steps:
       - uses: actions/checkout@v3
@@ -26,31 +26,28 @@ jobs:
           pipreqs . --force --encoding=utf-8 --savepath=config/requirements.txt
 
       - name: Commit updated requirements.txt
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          git remote set-url origin https://x-access-token:${PAT_TOKEN}@github.com/Angeloth1/static-site-generator.git
           git add config/requirements.txt
           git diff-index --quiet HEAD || git commit -m "Auto-update requirements.txt via pipreqs"
-          git push origin pplUpdate
+          git push origin pplUpdate || echo "No changes to push"
 
       - name: Install dependencies
         run: pip install -r config/requirements.txt
 
-      - name: Get changed Markdown files in Post/
-        id: changes
+      - name: Convert missing Markdown files
         run: |
-          git fetch origin pplUpdate
-          FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^Post/.*\.md$' || true)
-          echo "changed_files=$FILES" >> $GITHUB_OUTPUT
-
-      - name: Check if any Markdown files changed
-        if: ${{ steps.changes.outputs.changed_files == '' }}
-        run: |
-          echo "No Markdown files changed in Post/. Skipping conversion."
-          exit 0
-
-      - name: Run converter on changed files
-        run: |
-          for file in ${{ steps.changes.outputs.changed_files }}; do
-            outfile="HTML/$(basename "${file%.md}.html")"
-            python converter.py "$file" "$outfile"
+          mkdir -p HTML
+          for md_file in Post/*.md; do
+            html_file="HTML/$(basename "${md_file%.md}.html")"
+            if [ ! -f "$html_file" ]; then
+              echo "Converting $md_file → $html_file"
+              python converter.py "$md_file" "$html_file"
+            else
+              echo "Skipping $md_file, HTML already exists"
+            fi
+          done

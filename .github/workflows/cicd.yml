@@ -50,9 +50,9 @@ jobs:
 
       - name: Convert missing Markdown files
         run: |
-          echo "Files in Post/:"
-          ls -l Post/
-          for md_file in Post/*.md; do
+          echo "Files in post/:"
+          ls -l post/
+          for md_file in post/*.md; do
             post_name=$(basename "$md_file" .md)
             html_file="HTML/${post_name}.html"
             echo "Checking $md_file → $html_file"

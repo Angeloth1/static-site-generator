@@ -3,7 +3,7 @@ import os
 import sys
 
 def Conv(postName):
-    md_path = os.path.join("Post", postName + ".md")  # Make sure folder is uppercase Post
+    md_path = os.path.join("post", postName + ".md") 
     html_folder = "HTML"
     os.makedirs(html_folder, exist_ok=True)
     html_path = os.path.join(html_folder, postName + ".html")

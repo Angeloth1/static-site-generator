@@ -20,8 +20,8 @@ jobs:
           echo "Current directory: $(pwd)"
           echo "Files in root:"
           ls -l
-          echo "Files in Post/:"
-          ls -l Post/ || echo "Post/ folder not found"
+          echo "Files in post/:"
+          ls -l post/ || echo "post/ folder not found"
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -48,14 +48,14 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "Auto-update requirements.txt via pipreqs"
           git push origin ${{ github.ref_name }} || echo "No changes to push"
 
-      - name: Convert missing Markdown files
+      - name: Convert Markdown files
         run: |
           echo "Files in post/:"
-          ls -l post/
+          ls -l post/ || echo "No post/ folder"
+          shopt -s nullglob
           for md_file in post/*.md; do
+            echo "FOUND: $md_file"
             post_name=$(basename "$md_file" .md)
-            html_file="HTML/${post_name}.html"
-            echo "Checking $md_file → $html_file"
             echo "DEBUG: Running python mdConverter.py $post_name"
             python mdConverter.py "$post_name"
           done

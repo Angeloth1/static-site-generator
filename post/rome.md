@@ -74,13 +74,5 @@ The Roman Empire left a **lasting impact**:
 
 ---
 
-## Fun Facts
-
-- The Roman Empire had an estimated **50–90 million inhabitants** at its peak.  
-- Romans invented concrete and used it to construct durable buildings.  
-- Public baths and gladiatorial games were important aspects of Roman social life.  
-- The phrase *“All roads lead to Rome”* reflects the extensive network of Roman roads connecting the empire.
-
----
 
 > "Rome wasn't built in a day, but it left a mark that lasted millennia."

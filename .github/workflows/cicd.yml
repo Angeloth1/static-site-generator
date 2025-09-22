@@ -64,7 +64,7 @@ jobs:
         run: ls -l HTML/ || echo "HTML/ folder is empty"
 
         
-        - name: Commit generated HTML files
+      - name: Commit generated HTML files
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |

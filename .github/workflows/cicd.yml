@@ -62,3 +62,16 @@ jobs:
 
       - name: List HTML output
         run: ls -l HTML/ || echo "HTML/ folder is empty"
+
+        
+        - name: Commit generated HTML files
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git remote set-url origin https://x-access-token:${PAT_TOKEN}@github.com/Angeloth1/static-site-generator.git
+          git add HTML/*.html
+          git diff-index --quiet HEAD || git commit -m "Auto-generate HTML from Markdown"
+          git push origin ${{ github.ref_name }} || echo "No HTML changes to push"
+

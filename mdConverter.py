@@ -14,8 +14,6 @@ def Conv(postName):
     js_folder   = "JS"
 
     os.makedirs(html_folder, exist_ok=True)
-    os.makedirs(css_folder, exist_ok=True)
-    os.makedirs(js_folder, exist_ok=True)
 
     html_path = os.path.join(html_folder, postName + ".html")
     css_path  = os.path.join(css_folder, "style.css")
@@ -61,6 +59,7 @@ def Conv(postName):
 
     css_rel = get_relative_path(html_path, css_path)
     js_rel  = get_relative_path(html_path, js_path)
+
 
     # Render final HTML
     html_content = template.render(

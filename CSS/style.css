@@ -1,11 +1,12 @@
 /* ------------------------
-   Dark Mode Base
+   Dark Mode Base Colors
 -------------------------*/
 :root {
     --bg-color: #121212;
     --primary-color: #1f1f1f;
     --secondary-color: #2c2c2c;
     --accent-color: #bb86fc;
+    --accent-hover: #9a67ea;
     --text-color: #e0e0e0;
     --text-muted: #a0a0a0;
     --border-color: #333;
@@ -20,7 +21,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     margin: 0;
-    padding: 0;
+    padding: 1rem;
 }
 
 /* ------------------------
@@ -37,17 +38,24 @@ a:hover {
 }
 
 /* ------------------------
-   Headers
+   Headings
 -------------------------*/
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-color);
-    margin: 0 0 0.5em 0;
+    margin: 1rem 0 0.5rem 0;
+}
+
+/* ------------------------
+   Paragraphs
+-------------------------*/
+p {
+    margin: 0 0 1rem 0;
 }
 
 /* ------------------------
    Sections & Containers
 -------------------------*/
-section, .container {
+section, .container, div {
     background-color: var(--primary-color);
     padding: 1.5rem;
     margin: 1rem 0;
@@ -69,11 +77,11 @@ button {
 }
 
 button:hover {
-    background-color: #9a67ea;
+    background-color: var(--accent-hover);
 }
 
 /* ------------------------
-   Inputs
+   Inputs & Forms
 -------------------------*/
 input, textarea, select {
     background-color: var(--secondary-color);
@@ -81,6 +89,8 @@ input, textarea, select {
     border: 1px solid var(--border-color);
     padding: 0.5rem;
     border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 input::placeholder, textarea::placeholder {
@@ -99,9 +109,85 @@ input::placeholder, textarea::placeholder {
 }
 
 /* ------------------------
-   Misc
+   Horizontal Rule
 -------------------------*/
 hr {
     border: 1px solid var(--border-color);
     margin: 2rem 0;
+}
+
+/* ------------------------
+   Markdown-specific Elements
+-------------------------*/
+ul, ol {
+    margin: 0 0 1rem 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+pre, code {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    padding: 0.3em 0.5em;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+}
+
+pre {
+    padding: 1rem;
+}
+
+blockquote {
+    border-left: 4px solid var(--accent-color);
+    padding-left: 1rem;
+    color: var(--text-muted);
+    margin: 1rem 0;
+    background-color: var(--secondary-color);
+}
+
+/* ------------------------
+   Tables
+-------------------------*/
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+th, td {
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    text-align: left;
+}
+
+th {
+    background-color: var(--primary-color);
+}
+
+/* ------------------------
+   Images
+-------------------------*/
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* ------------------------
+   Misc / Utility
+-------------------------*/
+code.inline {
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+strong, b {
+    color: #ffffff;
+}
+
+em, i {
+    color: var(--accent-color);
 }

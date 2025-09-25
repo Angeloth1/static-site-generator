@@ -1,12 +1,11 @@
 /* ------------------------
-   Dark Mode Base Colors
+   Dark Mode Base
 -------------------------*/
 :root {
     --bg-color: #121212;
     --primary-color: #1f1f1f;
     --secondary-color: #2c2c2c;
     --accent-color: #bb86fc;
-    --accent-hover: #9a67ea;
     --text-color: #e0e0e0;
     --text-muted: #a0a0a0;
     --border-color: #333;
@@ -21,7 +20,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     margin: 0;
-    padding: 1rem;
+    padding: 2rem;
 }
 
 /* ------------------------
@@ -30,86 +29,42 @@ body {
 a {
     color: var(--accent-color);
     text-decoration: none;
-    transition: color 0.3s;
 }
-
 a:hover {
     color: #ffffff;
 }
 
 /* ------------------------
-   Headings
+   Headers
 -------------------------*/
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-color);
-    margin: 1rem 0 0.5rem 0;
+    margin: 1.2rem 0 0.5rem 0;
 }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
 
 /* ------------------------
    Paragraphs
 -------------------------*/
 p {
-    margin: 0 0 1rem 0;
+    margin: 0.8rem 0;
 }
 
 /* ------------------------
-   Sections & Containers
+   Lists
 -------------------------*/
-section, .container, div {
-    background-color: var(--primary-color);
-    padding: 1.5rem;
-    margin: 1rem 0;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
+ul, ol {
+    padding-left: 2rem;
+    margin: 0.8rem 0;
+}
+li {
+    margin: 0.4rem 0;
 }
 
 /* ------------------------
-   Buttons
--------------------------*/
-button {
-    background-color: var(--accent-color);
-    color: #121212;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: var(--accent-hover);
-}
-
-/* ------------------------
-   Inputs & Forms
--------------------------*/
-input, textarea, select {
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    padding: 0.5rem;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-input::placeholder, textarea::placeholder {
-    color: var(--text-muted);
-}
-
-/* ------------------------
-   Cards / Boxes
--------------------------*/
-.card {
-    background-color: var(--secondary-color);
-    padding: 1rem;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-}
-
-/* ------------------------
-   Horizontal Rule
+   Horizontal Rules
 -------------------------*/
 hr {
     border: 1px solid var(--border-color);
@@ -117,77 +72,53 @@ hr {
 }
 
 /* ------------------------
-   Markdown-specific Elements
+   Blockquotes
 -------------------------*/
-ul, ol {
-    margin: 0 0 1rem 1.5rem;
-}
-
-li {
-    margin-bottom: 0.5rem;
-}
-
-pre, code {
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-    padding: 0.3em 0.5em;
-    border-radius: 4px;
-    font-family: 'Courier New', monospace;
-    overflow-x: auto;
-}
-
-pre {
-    padding: 1rem;
-}
-
 blockquote {
     border-left: 4px solid var(--accent-color);
     padding-left: 1rem;
     color: var(--text-muted);
-    margin: 1rem 0;
+    font-style: italic;
+    margin: 1.2rem 0;
     background-color: var(--secondary-color);
-}
-
-/* ------------------------
-   Tables
--------------------------*/
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1.5rem;
-}
-
-th, td {
-    border: 1px solid var(--border-color);
-    padding: 0.5rem 1rem;
-    text-align: left;
-}
-
-th {
-    background-color: var(--primary-color);
-}
-
-/* ------------------------
-   Images
--------------------------*/
-img {
-    max-width: 100%;
-    height: auto;
     border-radius: 5px;
 }
 
 /* ------------------------
-   Misc / Utility
+   Buttons (if you add them later)
 -------------------------*/
-code.inline {
-    padding: 0.2em 0.4em;
-    border-radius: 3px;
+button {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #9a67ea;
 }
 
-strong, b {
-    color: #ffffff;
+/* ------------------------
+   Inputs (if you add forms)
+-------------------------*/
+input, textarea, select {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+input::placeholder, textarea::placeholder {
+    color: var(--text-muted);
 }
 
-em, i {
+/* ------------------------
+   Misc
+-------------------------*/
+code, pre {
+    background-color: var(--secondary-color);
     color: var(--accent-color);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
 }

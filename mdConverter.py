@@ -56,7 +56,7 @@ def Conv(postName):
     title = postName #fallback if no header found
     for line in md_content.splitlines():
         if line.strip().startswith("# "):
-            title =line.lstrip("#").strip
+            title =line.lstrip("#").strip()
             break
 
 # ------------------------
@@ -70,7 +70,7 @@ def Conv(postName):
         return
 
 # Render final HTML (inject converted markdown into template)
-    html_content = template.render(content=html_body)
+    html_content = template.render(content=html_body, title =title)
 
 # ------------------------
 # Save the final HTML

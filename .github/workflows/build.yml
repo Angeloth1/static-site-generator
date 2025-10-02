@@ -2,26 +2,25 @@ name: Convert Markdown to HTML
 
 on:
   push:
-    branches:
+    branches: 
       - pplUpdate
       - main
-
-permissions:
-  contents: write
-  pages: write
-  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: Show repo files for debug
         run: |
           echo "Current directory: $(pwd)"
+          echo "Files in root:"
           ls -l
+          echo "Files in post/:"
           ls -l post/ || echo "post/ folder not found"
 
       - name: Set up Python
@@ -57,12 +56,14 @@ jobs:
           for md_file in post/*.md; do
             echo "FOUND: $md_file"
             post_name=$(basename "$md_file" .md)
+            echo "DEBUG: Running python mdConverter.py $post_name"
             python mdConverter.py "$post_name"
           done
 
       - name: List HTML output
         run: ls -l HTML/ || echo "HTML/ folder is empty"
 
+        
       - name: Commit generated HTML files
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
@@ -74,44 +75,3 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "Auto-generate HTML from Markdown"
           git push origin ${{ github.ref_name }} || echo "No HTML changes to push"
 
-
-      - name: Debug file structure before upload
-        run: |
-          echo "=== Current working directory ==="
-          pwd
-          echo ""
-          echo "=== List root directory ==="
-          ls -alh
-          echo ""
-          echo "=== Check HTML folder ==="
-          ls -alh HTML || echo "HTML folder not found"
-          echo ""
-          echo "=== Check CSS folder ==="
-          ls -alh CSS || echo "CSS folder not found"
-          echo ""
-          echo "=== Check JS folder ==="
-          ls -alh JS || echo "JS folder not found"
-          echo ""
-          echo "=== Check template folder ==="
-          ls -alh template || echo "template folder not found"
-          echo ""
-          echo "=== Check LICENSE file ==="
-          ls -alh LICENSE || echo "LICENSE file not found"
-          echo ""
-          echo "=== Check README.md file ==="
-          ls -alh README.md || echo "README.md file not found"
-          echo ""
-          echo "=== Check mdConverter.py file ==="
-          ls -alh mdConverter.py || echo "mdConverter.py file not found"
-
-      - name: Upload site files as artifact
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path:
-            - HTML
-            - CSS
-            - JS
-            - template
-            - LICENSE
-            - README.md
-            - mdConverter.py

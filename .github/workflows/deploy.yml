@@ -1,3 +1,4 @@
+# Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
 on:
@@ -6,73 +7,38 @@ on:
     types:
       - completed
 
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
+  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Debug file structure before upload
-        run: |
-          echo "=== Current working directory ==="
-          pwd
-          echo ""
-          echo "=== List root directory ==="
-          ls -alh
-          echo ""
-          echo "=== Check HTML folder ==="
-          ls -alh HTML || echo "HTML folder not found"
-          echo ""
-          echo "=== Check CSS folder ==="
-          ls -alh CSS || echo "CSS folder not found"
-          echo ""
-          echo "=== Check JS folder ==="
-          ls -alh JS || echo "JS folder not found"
-          echo ""
-          echo "=== Check template folder ==="
-          ls -alh template || echo "template folder not found"
-          echo ""
-          echo "=== Check LICENSE file ==="
-          ls -alh LICENSE || echo "LICENSE file not found"
-          echo ""
-          echo "=== Check README.md file ==="
-          ls -alh README.md || echo "README.md file not found"
-          echo ""
-          echo "=== Check mdConverter.py file ==="
-          ls -alh mdConverter.py || echo "mdConverter.py file not found"
-
-      - name: Upload site files as artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          path:
-            - HTML
-            - CSS
-            - JS
-            - template
-            - LICENSE
-            - README.md
-            - mdConverter.py
-
-
+          # Upload entire repository
+          path: 'HTML/'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

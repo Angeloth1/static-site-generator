@@ -75,3 +75,7 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "Auto-generate HTML from Markdown"
           git push origin ${{ github.ref_name }} || echo "No HTML changes to push"
 
+      - name: Copy CSS to HTML folder
+        run: |
+          mkdir -p HTML/CSS
+          cp -r CSS/* HTML/CSS/

@@ -10,10 +10,12 @@ def Conv(postName):
     md_path = os.path.join("post", postName + ".md")  # Input Markdown file
     
     html_folder = "HTML"
-    css_folder  = "CSS"
-    js_folder   = "JS"
+    css_folder  = os.path.join(html_folder, "CSS")
+    js_folder   = os.path.join(html_folder, "JS")
 
     os.makedirs(html_folder, exist_ok=True)
+    os.makedirs(css_folder, exist_ok=True)
+    os.makedirs(js_folder, exist_ok=True)
 
     html_path = os.path.join(html_folder, postName + ".html")
     css_path  = os.path.join(css_folder, "style.css")
@@ -32,7 +34,7 @@ def Conv(postName):
     html_body = markdown.markdown(md_content)
 
     # ------------------------
-    # Extract title
+    # Extract title from markdown (# Heading)
     # ------------------------
     title = postName
     for line in md_content.splitlines():
@@ -51,22 +53,13 @@ def Conv(postName):
         return
 
     # ------------------------
-    # Dynamic paths for CSS & JS
+    # Render final HTML with fixed refs
     # ------------------------
-    def get_relative_path(from_path, to_path):
-        rel_path = os.path.relpath(to_path, os.path.dirname(from_path))
-        return rel_path.replace("\\", "/")
-
-    css_rel = get_relative_path(html_path, css_path)
-    js_rel  = get_relative_path(html_path, js_path)
-
-
-    # Render final HTML
     html_content = template.render(
         content=html_body,
         title=title,
-        css_path=css_rel,
-        js_path=js_rel
+        css_path="CSS/style.css",
+        js_path="JS/script.js"
     )
 
     # ------------------------
@@ -77,19 +70,19 @@ def Conv(postName):
     print(f"✅ Converted {md_path} → {html_path} (title: {title})")
 
     # ------------------------
-    # Ensure global CSS exists
+    # Ensure global CSS exists (only if missing)
     # ------------------------
     if not os.path.exists(css_path):
         with open(css_path, "w", encoding="utf-8") as f:
-            f.write("/* Global stylesheet */\nbody { font-family: Arial, sans-serif; background-color: #121212; color: #eee; }")
+            f.write("/* Default stylesheet */\nbody { font-family: Arial, sans-serif; background-color: #121212; color: #eee; }")
         print(f"🆕 Created global CSS: {css_path}")
 
     # ------------------------
-    # Ensure global JS exists
+    # Ensure global JS exists (only if missing)
     # ------------------------
     if not os.path.exists(js_path):
         with open(js_path, "w", encoding="utf-8") as f:
-            f.write("// Global JavaScript\nconsole.log('Global script loaded');")
+            f.write("// Default JavaScript\nconsole.log('Global script loaded');")
         print(f"🆕 Created global JS: {js_path}")
 
 

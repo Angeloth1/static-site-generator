@@ -77,11 +77,4 @@ jobs:
       - name: Upload site files as artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: |
-            HTML
-            CSS
-            JS
-            template
-            LICENSE
-            README.md
-            mdConverter.py
+          path: HTML,CSS,JS,template,LICENSE,README.md,mdConverter.py

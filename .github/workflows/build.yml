@@ -1,4 +1,4 @@
-name: Convert Markdown to HTML
+name: Build & Deploy Static Site
 
 on:
   push:
@@ -6,11 +6,14 @@ on:
       - pplUpdate
       - main
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
       - uses: actions/checkout@v3
@@ -63,7 +66,6 @@ jobs:
       - name: List HTML output
         run: ls -l HTML/ || echo "HTML/ folder is empty"
 
-        
       - name: Commit generated HTML files
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
@@ -75,3 +77,25 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "Auto-generate HTML from Markdown"
           git push origin ${{ github.ref_name }} || echo "No HTML changes to push"
 
+      - name: Upload site files as artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: |
+            HTML
+            CSS
+            JS
+            template
+            LICENSE
+            README.md
+            mdConverter.py
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

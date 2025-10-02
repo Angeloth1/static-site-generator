@@ -31,6 +31,35 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      - name: Debug file structure before upload
+        run: |
+          echo "=== Current working directory ==="
+          pwd
+          echo ""
+          echo "=== List root directory ==="
+          ls -alh
+          echo ""
+          echo "=== Check HTML folder ==="
+          ls -alh HTML || echo "HTML folder not found"
+          echo ""
+          echo "=== Check CSS folder ==="
+          ls -alh CSS || echo "CSS folder not found"
+          echo ""
+          echo "=== Check JS folder ==="
+          ls -alh JS || echo "JS folder not found"
+          echo ""
+          echo "=== Check template folder ==="
+          ls -alh template || echo "template folder not found"
+          echo ""
+          echo "=== Check LICENSE file ==="
+          ls -alh LICENSE || echo "LICENSE file not found"
+          echo ""
+          echo "=== Check README.md file ==="
+          ls -alh README.md || echo "README.md file not found"
+          echo ""
+          echo "=== Check mdConverter.py file ==="
+          ls -alh mdConverter.py || echo "mdConverter.py file not found"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:

@@ -54,28 +54,31 @@ jobs:
           ls -l post/ || echo "No post/ folder"
           shopt -s nullglob
           for md_file in post/*.md; do
-            echo "FOUND: $md_file"
             post_name=$(basename "$md_file" .md)
+            echo "FOUND: $md_file"
             echo "DEBUG: Running python mdConverter.py $post_name"
             python mdConverter.py "$post_name"
           done
-      
-      - name: Copy CSS to HTML folder
+
+      - name: Copy CSS to each post folder
         run: |
-          mkdir -p HTML/CSS
-          cp -r CSS/* HTML/CSS/
+          shopt -s nullglob
+          for md_file in post/*.md; do
+            post_name=$(basename "$md_file" .md)
+            mkdir -p HTML/$post_name
+            cp CSS/style.css HTML/$post_name/
+          done
+
       - name: List HTML output
         run: ls -l HTML/ || echo "HTML/ folder is empty"
 
-        
-      - name: Commit generated HTML files
+      - name: Commit generated HTML files and CSS
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git remote set-url origin https://x-access-token:${PAT_TOKEN}@github.com/Angeloth1/static-site-generator.git
-          git add HTML/*.html
-          git diff-index --quiet HEAD || git commit -m "Auto-generate HTML from Markdown"
+          git add HTML/
+          git diff-index --quiet HEAD || git commit -m "Auto-generate HTML per post with CSS"
           git push origin ${{ github.ref_name }} || echo "No HTML changes to push"
-

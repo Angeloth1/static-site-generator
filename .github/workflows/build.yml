@@ -81,13 +81,14 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: |
-            HTML
-            CSS
-            JS
-            template
+            HTML/
+            CSS/
+            JS/
+            template/
             LICENSE
             README.md
             mdConverter.py
+
 
   deploy:
     needs: build

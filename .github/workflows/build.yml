@@ -2,7 +2,7 @@ name: Build & Deploy Static Site
 
 on:
   push:
-    branches: 
+    branches:
       - pplUpdate
       - main
 
@@ -78,7 +78,7 @@ jobs:
           git push origin ${{ github.ref_name }} || echo "No HTML changes to push"
 
       - name: Upload site files as artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: |
             HTML

@@ -1,4 +1,4 @@
-name: Build & Deploy Static Site
+name: Convert Markdown to HTML
 
 on:
   push:
@@ -21,9 +21,7 @@ jobs:
       - name: Show repo files for debug
         run: |
           echo "Current directory: $(pwd)"
-          echo "Files in root:"
           ls -l
-          echo "Files in post/:"
           ls -l post/ || echo "post/ folder not found"
 
       - name: Set up Python
@@ -59,7 +57,6 @@ jobs:
           for md_file in post/*.md; do
             echo "FOUND: $md_file"
             post_name=$(basename "$md_file" .md)
-            echo "DEBUG: Running python mdConverter.py $post_name"
             python mdConverter.py "$post_name"
           done
 
@@ -78,18 +75,13 @@ jobs:
           git push origin ${{ github.ref_name }} || echo "No HTML changes to push"
 
       - name: Upload site files as artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
-          path:  "HTML/**,CSS/**,JS/**,template/**,LICENSE,README.md,mdConverter.py"
-
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          path: |
+            HTML
+            CSS
+            JS
+            template
+            LICENSE
+            README.md
+            mdConverter.py

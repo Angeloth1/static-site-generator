@@ -60,10 +60,18 @@ jobs:
           echo "=== Check mdConverter.py file ==="
           ls -alh mdConverter.py || echo "mdConverter.py file not found"
 
-      - name: Upload artifact
+      - name: Upload site files as artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: HTML,CSS,JS,template,LICENSE,README.md,mdConverter.py
+          path:
+            - HTML
+            - CSS
+            - JS
+            - template
+            - LICENSE
+            - README.md
+            - mdConverter.py
+
 
       - name: Deploy to GitHub Pages
         id: deployment

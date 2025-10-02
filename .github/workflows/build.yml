@@ -59,7 +59,11 @@ jobs:
             echo "DEBUG: Running python mdConverter.py $post_name"
             python mdConverter.py "$post_name"
           done
-
+      
+      - name: Copy CSS to HTML folder
+        run: |
+          mkdir -p HTML/CSS
+          cp -r CSS/* HTML/CSS/
       - name: List HTML output
         run: ls -l HTML/ || echo "HTML/ folder is empty"
 
@@ -75,7 +79,3 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "Auto-generate HTML from Markdown"
           git push origin ${{ github.ref_name }} || echo "No HTML changes to push"
 
-      - name: Copy CSS to HTML folder
-        run: |
-          mkdir -p HTML/CSS
-          cp -r CSS/* HTML/CSS/

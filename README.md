@@ -43,15 +43,25 @@
 ## Δομή Project
 
 Game-Archive/
+
 ├─ post/ # Markdown αρχεία για κάθε παιχνίδι
+
 ├─ template/ # HTML templates
+
 ├─ CSS/
+
 │ └─ style.css # Κεντρικό stylesheet
+
 ├─ JS/
+
 │ └─ script.js # Κεντρικό JavaScript
+
 ├─ HTML/ # Αυτόματα παραγόμενα HTML
+
 ├─ mdConverter.py # Μετατροπή Markdown σε HTML
+
 ├─ buildHomepage.py # Αυτόματη δημιουργία Home Page
+
 └─ .github/workflows/ # GitHub Actions workflows
 
 ---

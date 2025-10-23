@@ -24,50 +24,56 @@ body {
 }
 
 /* ------------------------
-   Search Bar
+   Links
 -------------------------*/
-.search-container {
-    width: 100%;
-    text-align: center;
-    padding: 1rem;
-    position: absolute; /* Positioning it at the top */
-    top: 0;
-    left: 0;
-    right: 0;
+a {
+    color: var(--accent-color);
+    text-decoration: none;
 }
-
-#search-bar {
-    width: 50%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid var(--border-color);
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-    transition: border 0.3s ease;
-}
-
-#search-bar:focus {
-    border-color: var(--accent-color);
+a:hover {
+    color: #ffffff;
 }
 
 /* ------------------------
-   Post Content Styling
+   Headers
 -------------------------*/
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-color);
     margin: 1.2rem 0 0.5rem 0;
 }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
 
-p, ul, ol {
+/* ------------------------
+   Paragraphs
+-------------------------*/
+p {
     margin: 0.8rem 0;
 }
 
+/* ------------------------
+   Lists
+-------------------------*/
+ul, ol {
+    padding-left: 2rem;
+    margin: 0.8rem 0;
+}
+li {
+    margin: 0.4rem 0;
+}
+
+/* ------------------------
+   Horizontal Rules
+-------------------------*/
 hr {
     border: 1px solid var(--border-color);
     margin: 2rem 0;
 }
 
+/* ------------------------
+   Blockquotes
+-------------------------*/
 blockquote {
     border-left: 4px solid var(--accent-color);
     padding-left: 1rem;
@@ -76,4 +82,43 @@ blockquote {
     margin: 1.2rem 0;
     background-color: var(--secondary-color);
     border-radius: 5px;
+}
+
+/* ------------------------
+   Buttons (if you add them later)
+-------------------------*/
+button {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #9a67ea;
+}
+
+/* ------------------------
+   Inputs (if you add forms)
+-------------------------*/
+input, textarea, select {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+input::placeholder, textarea::placeholder {
+    color: var(--text-muted);
+}
+
+/* ------------------------
+   Misc
+-------------------------*/
+code, pre {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
 }

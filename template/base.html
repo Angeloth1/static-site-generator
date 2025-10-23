@@ -8,7 +8,13 @@
     <script src="{{ js_path }}"></script>
 </head>
 <body>
-    <div>
+    <!-- Search Bar Section -->
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="Search...">
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
         {{ content | safe }}
     </div>
 </body>

@@ -45,23 +45,14 @@
 Game-Archive/
 
 ├─ post/ # Markdown αρχεία για κάθε παιχνίδι
-
 ├─ template/ # HTML templates
-
 ├─ CSS/
-
 │ └─ style.css # Κεντρικό stylesheet
-
 ├─ JS/
-
 │ └─ script.js # Κεντρικό JavaScript
-
 ├─ HTML/ # Αυτόματα παραγόμενα HTML
-
 ├─ mdConverter.py # Μετατροπή Markdown σε HTML
-
 ├─ buildHomepage.py # Αυτόματη δημιουργία Home Page
-
 └─ .github/workflows/ # GitHub Actions workflows
 
 ---
@@ -81,3 +72,4 @@ Game-Archive/
 Το **Game Archive** δεν είναι απλώς ένα site με retro και κλασικά games. Είναι ένα **πλήρες οικοσύστημα για αυτόματη παραγωγή, παρουσίαση και αναζήτηση περιεχομένου**, με δυνατότητα επέκτασης, σύγχρονη αισθητική και πλήρη αυτοματοποίηση.
 
 Οι επισκέπτες μπορούν να μάθουν για την ιστορία των παιχνιδιών και οι developers να δουν πώς να φτιάξουν **αυτοματοποιημένα, στατικά websites** με σύγχρονα εργαλεία.
+

@@ -58,6 +58,11 @@ jobs:
             python mdConverter.py "$post_name"
           done
 
+      - name: Generate Homepage
+        run: |
+          echo "Generating homepage..."
+          python buildHomepage.py
+
       - name: List HTML output
         run: ls -l HTML/ || echo "HTML/ folder is empty"
 
@@ -69,5 +74,5 @@ jobs:
           git config user.email "actions@github.com"
           git remote set-url origin https://x-access-token:${PAT_TOKEN}@github.com/Angeloth1/static-site-generator.git
           git add HTML/
-          git diff-index --quiet HEAD || git commit -m "Auto-generate HTML per post with CSS and JS"
+          git diff-index --quiet HEAD || git commit -m "Auto-generate HTML per post with CSS and JS, including homepage"
           git push origin ${{ github.ref_name }} || echo "No HTML changes to push"
